@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "@types/node": "^10.5.1",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^5.0.0-alpha.3",
     "restify": "^5.0.0"
   },
   "scripts": {
