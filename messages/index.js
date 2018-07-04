@@ -28,7 +28,7 @@ const bot = new botbuilder_1.UniversalBot(connector);
 bot.localePath(path.join(__dirname, './locale'));
 // bot.set('storage', storage);
 bot.dialog('/', function (session) {
-    session.send('あなたは ' + session.message.text + 'と言いました。');
+    session.send('あなたは ' + session.message.text + 'と言いましたね。');
 });
 if (useEmulator) {
     const restify = require('restify');
