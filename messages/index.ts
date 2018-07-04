@@ -1,11 +1,10 @@
-"use strict";
-var builder = require("botbuilder");
-var botbuilder_azure = require("botbuilder-azure");
-var path = require('path');
+import { ChatConnector, MemoryBotStorage, UniversalBot, Session } from 'botbuilder';
+import { BotServiceConnector, AzureTableClient, AzureBotStorage } from 'botbuilder-azure';
+import * as path from 'path';
 
-var useEmulator = (process.env.NODE_ENV == 'development');
+const useEmulator = (process.env.NODE_ENV == 'development');
 
-var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
+const connector = useEmulator ? new ChatConnector() : new BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
     appPassword: process.env['MicrosoftAppPassword'],
     openIdMetadata: process.env['BotOpenIdMetadata']
@@ -17,21 +16,21 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 * For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
 * ---------------------------------------------------------------------------------------- */
 
-var tableName = 'botdata';
-var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
-var storage = useEmulator ? new builder.MemoryBotStorage() : new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
+const tableName = 'botdata';
+const azureTableClient = new AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
+const storage = useEmulator ? new MemoryBotStorage() : new AzureBotStorage({ gzipData: false }, azureTableClient);
 
-var bot = new builder.UniversalBot(connector);
+const bot = new UniversalBot(connector);
 bot.localePath(path.join(__dirname, './locale'));
 // bot.set('storage', storage);
 
-bot.dialog('/', function (session) {
+bot.dialog('/', function (session: Session) {
     session.send('あなたは ' + session.message.text + 'と言いました。');
 });
 
 if (useEmulator) {
-    var restify = require('restify');
-    var server = restify.createServer();
+    const restify = require('restify');
+    const server = restify.createServer();
     server.listen(3978, function() {
         console.log('test bot endpont at http://localhost:3978/api/messages');
     });

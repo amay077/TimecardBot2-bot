@@ -8,6 +8,7 @@
     "botbuilder-azure": "^3.0.4"
   },
   "devDependencies": {
+    "@types/node": "^10.5.1",
     "restify": "^5.0.0"
   },
   "scripts": {
