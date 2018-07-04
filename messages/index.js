@@ -26,7 +26,7 @@ bot.localePath(path.join(__dirname, './locale'));
 // bot.set('storage', storage);
 
 bot.dialog('/', function (session) {
-    session.send('You said ' + session.message.text);
+    session.send('あなたは ' + session.message.text + 'と言いました。');
 });
 
 if (useEmulator) {
